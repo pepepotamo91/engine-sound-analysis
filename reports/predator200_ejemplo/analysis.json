@@ -1,0 +1,251 @@
+{
+  "audio": {
+    "file": "audio/predator200_ejemplo.opus",
+    "codec": "opus",
+    "bitrate_kbps": 16.94,
+    "original_fs": 48000.0,
+    "analysis_fs": 4000.0,
+    "duration_s": 18.07,
+    "rms_dbfs": -21.1
+  },
+  "engine": {
+    "cylinders": 1,
+    "strokes": 4,
+    "firing_order": 0.5,
+    "idle_range": [
+      1250.0,
+      1550.0
+    ],
+    "max_rpm": 3800.0
+  },
+  "params": {
+    "fmin": 4.96,
+    "fmax": 57.5,
+    "band": [
+      45.0,
+      575.0
+    ],
+    "rpm_range": null
+  },
+  "long_term_peaks": [
+    {
+      "hz": 50.0,
+      "db": -44.245314816807884,
+      "prominence_db": 14.255947636688148
+    },
+    {
+      "hz": 75.0,
+      "db": -43.128848039065886,
+      "prominence_db": 6.597273018481893
+    },
+    {
+      "hz": 82.5,
+      "db": -41.03277126559927,
+      "prominence_db": 10.832894352658819
+    },
+    {
+      "hz": 100.0,
+      "db": -36.973632682076854,
+      "prominence_db": 11.134815980536168
+    },
+    {
+      "hz": 125.0,
+      "db": -33.859017781825415,
+      "prominence_db": 29.085591573077856
+    },
+    {
+      "hz": 133.0,
+      "db": -42.09127157360483,
+      "prominence_db": 8.526627811605508
+    },
+    {
+      "hz": 149.5,
+      "db": -42.13450719856448,
+      "prominence_db": 9.469006394878804
+    },
+    {
+      "hz": 179.5,
+      "db": -46.982065225392724,
+      "prominence_db": 6.066764139967155
+    },
+    {
+      "hz": 199.5,
+      "db": -45.362786558558845,
+      "prominence_db": 9.225401360641662
+    },
+    {
+      "hz": 225.0,
+      "db": -43.157035430152405,
+      "prominence_db": 11.757055502487361
+    },
+    {
+      "hz": 274.0,
+      "db": -45.233957469504716,
+      "prominence_db": 10.650541071026034
+    },
+    {
+      "hz": 349.0,
+      "db": -46.89440211119317,
+      "prominence_db": 8.12973121748923
+    },
+    {
+      "hz": 375.0,
+      "db": -44.67129864047916,
+      "prominence_db": 13.248646276919878
+    },
+    {
+      "hz": 449.0,
+      "db": -52.660189535482516,
+      "prominence_db": 6.883815042663784
+    },
+    {
+      "hz": 465.0,
+      "db": -53.70858787333318,
+      "prominence_db": 6.137954156445147
+    },
+    {
+      "hz": 484.5,
+      "db": -52.67391130755386,
+      "prominence_db": 7.331555374038274
+    },
+    {
+      "hz": 497.5,
+      "db": -52.261426887514986,
+      "prominence_db": 8.914071298687205
+    },
+    {
+      "hz": 514.5,
+      "db": -52.591286372219884,
+      "prominence_db": 7.507544376003693
+    },
+    {
+      "hz": 549.0,
+      "db": -55.290574301643574,
+      "prominence_db": 6.001030866436324
+    },
+    {
+      "hz": 575.0,
+      "db": -53.82102438140039,
+      "prominence_db": 6.421356273916587
+    },
+    {
+      "hz": 675.0,
+      "db": -50.106235424006876,
+      "prominence_db": 9.92371423902302
+    },
+    {
+      "hz": 722.5,
+      "db": -51.94001843828084,
+      "prominence_db": 7.809731949268219
+    },
+    {
+      "hz": 735.5,
+      "db": -52.10270130082908,
+      "prominence_db": 6.216349617149355
+    },
+    {
+      "hz": 915.0,
+      "db": -48.73895628335135,
+      "prominence_db": 10.573523126538568
+    }
+  ],
+  "track_summary": {
+    "f_comb_min": 10.03,
+    "f_comb_max": 27.87,
+    "f_comb_low_p5": 11.63,
+    "f_comb_first_1s": 11.34,
+    "f_comb_last_1s": 17.01,
+    "conf_median": 7.5,
+    "frac_low_conf": 0.14,
+    "hit_search_limit": false
+  },
+  "plateaus": [
+    {
+      "a": 3.9,
+      "b": 6.9,
+      "f_mean": 16.56896328130814,
+      "f_std": 0.12334829608543188,
+      "f_min": 16.31336088357379,
+      "f_max": 16.794780056850055,
+      "conf_mean": 9.268767011979355,
+      "id": "A",
+      "subharmonic_contrast_db": 10.5,
+      "autocorr_spacing_hz": 16.6
+    },
+    {
+      "a": 7.4,
+      "b": 8.7,
+      "f_mean": 17.09138046660524,
+      "f_std": 0.07771857850544761,
+      "f_min": 16.956192006071532,
+      "f_max": 17.180783269281296,
+      "conf_mean": 8.558727155526134,
+      "id": "B",
+      "subharmonic_contrast_db": 10.5,
+      "autocorr_spacing_hz": 17.09
+    },
+    {
+      "a": 10.5,
+      "b": 13.3,
+      "f_mean": 24.968053740509426,
+      "f_std": 0.05075362040311321,
+      "f_min": 24.875193932388918,
+      "f_max": 25.069166619646293,
+      "conf_mean": 10.228115288663343,
+      "id": "C",
+      "subharmonic_contrast_db": 13.3,
+      "autocorr_spacing_hz": 24.9
+    },
+    {
+      "a": 16.4,
+      "b": 17.2,
+      "f_mean": 17.14735565461153,
+      "f_std": 0.17225214629358113,
+      "f_min": 16.92610009809129,
+      "f_max": 17.48462461308148,
+      "conf_mean": 7.419494783269333,
+      "id": "D",
+      "subharmonic_contrast_db": 8.9,
+      "autocorr_spacing_hz": 17.09
+    }
+  ],
+  "hypotheses": [
+    {
+      "q": 0.5,
+      "rpm_factor": 120.0,
+      "label": "ciclo 4T (2 vueltas) = explosión (orden 0.5)",
+      "firing_every": 1,
+      "compatible": true,
+      "plateau_rpm": [
+        1988,
+        2051,
+        2996,
+        2058
+      ],
+      "low_rpm": 1396,
+      "low_in_idle_range": true,
+      "firing_family_advantage_db": null,
+      "flags": []
+    },
+    {
+      "q": 1.0,
+      "rpm_factor": 60.0,
+      "label": "giro del cigüeñal (1 vuelta)",
+      "firing_every": null,
+      "compatible": false,
+      "plateau_rpm": [
+        994,
+        1025,
+        1498,
+        1029
+      ],
+      "low_rpm": 698,
+      "low_in_idle_range": false,
+      "firing_family_advantage_db": null,
+      "flags": [
+        "incompatible con 1 cil. 4T: la explosión (orden 0.5) no sería múltiplo del peine",
+        "rpm baja 698 fuera del ralentí esperado 1250–1550 (irrelevante si la grabación no incluye ralentí)"
+      ]
+    }
+  ]
+}

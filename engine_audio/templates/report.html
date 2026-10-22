@@ -1,0 +1,241 @@
+<title>__TITLE__</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Public+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+__PLOTLY__
+<style>
+/* Layout: informe de banco de pruebas, columna única ~1080px, cifras clave arriba, gráficos a ancho completo, tablas en mono */
+:root{
+  --bg:#f5f6f4; --panel:#ffffff; --fg:#1b1f1d; --muted:#5d6661; --line:#d9ddd9;
+  --accent:#c2410c; --accent2:#0f6b5c; --seg-a:#0f6b5c; --seg-b:#c2410c; --seg-c:#4b5ea8; --seg-d:#8a5a00; --seg-e:#7a3f8f; --seg-f:#2f6f9f;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121514; --panel:#1a1e1c; --fg:#e7ebe8; --muted:#9aa49f; --line:#2c3330;
+  --accent:#f97316; --accent2:#34b39b; --seg-a:#34b39b; --seg-b:#f97316; --seg-c:#8ea2f0; --seg-d:#e0b04a; --seg-e:#c99ad8; --seg-f:#7fb6e0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121514; --panel:#1a1e1c; --fg:#e7ebe8; --muted:#9aa49f; --line:#2c3330;
+  --accent:#f97316; --accent2:#34b39b; --seg-a:#34b39b; --seg-b:#f97316; --seg-c:#8ea2f0; --seg-d:#e0b04a; --seg-e:#c99ad8; --seg-f:#7fb6e0; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px;display:flex;flex-direction:column;gap:40px}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-stretch:80%;font-weight:800;font-size:clamp(30px,5vw,48px);line-height:1.05;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-stretch:85%;font-weight:700;font-size:24px;margin:0;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;font-size:17px;margin:0}
+p{margin:0;max-width:68ch}
+.lede{font-size:17px;color:var(--fg)}
+.muted{color:var(--muted)}
+section{display:flex;flex-direction:column;gap:14px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.kpi{background:var(--panel);padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.kpi .v{font-family:var(--display);font-stretch:80%;font-weight:700;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .v small{font-family:var(--mono);font-size:13px;font-weight:400;color:var(--muted);margin-left:4px}
+.kpi .l{font-size:13px;color:var(--muted)}
+.kpi .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:720px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.chart{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0;overflow:hidden}
+.chart .plot{width:100%;height:520px}
+.chart .plot.short{height:320px}
+.chart .plot.mid{height:420px}
+@media (max-width:600px){.chart .plot{height:400px}}
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.bar .cap{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.seg button{font:600 12px var(--mono);background:transparent;color:var(--muted);border:0;padding:6px 10px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+td.num{font-family:var(--mono)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:baseline}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 14px;display:flex;flex-direction:column;gap:6px}
+ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:72ch}
+code,.mono{font-family:var(--mono);font-size:.92em}
+audio{width:100%;max-width:520px}
+.formula{font-family:var(--mono);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;overflow-x:auto;white-space:pre;font-size:13px}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow" id="eyebrow"></span>
+  <h1 id="h1"></h1>
+  <p class="lede" id="lede"></p>
+  <audio controls id="aud"></audio>
+</header>
+
+<section><div class="kpis" id="kpis"></div></section>
+
+<section>
+  <h2>Waterfall 3D (tiempo × frecuencia × nivel)</h2>
+  <p class="muted" id="wfcap"></p>
+  <div class="chart">
+    <div class="bar">
+      <div class="seg" role="group" aria-label="Estilo del waterfall">
+        <button id="wfSurf" aria-pressed="true">Superficie</button>
+        <button id="wfLines" aria-pressed="false">Líneas</button>
+      </div>
+      <span class="cap">eje Y: tiempo [s] · eje X: frecuencia [Hz] · eje Z: dB</span>
+    </div>
+    <div id="wf" class="plot"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Waterfall de órdenes (tiempo × orden × nivel)</h2>
+  <p class="muted">Mismo espectro con el eje de frecuencia dividido por la frecuencia de giro del cigüeñal en cada instante. Si el seguimiento de rpm es correcto, los armónicos quedan como crestas rectas en órdenes fijos aunque el motor acelere. En las transiciones rápidas las crestas se emborronan porque la ventana de 1 s mezcla regímenes.</p>
+  <div class="chart"><div id="ow" class="plot"></div></div>
+</section>
+
+<section>
+  <h2>Régimen estimado</h2>
+  <div class="chart"><div id="rpm" class="plot short"></div></div>
+  <div class="tbl"><table id="segtbl"></table></div>
+</section>
+
+<section>
+  <h2>Espectrograma con órdenes superpuestos</h2>
+  <p class="muted" id="sgcap"></p>
+  <div class="chart">
+    <div class="bar">
+      <div class="seg" role="group" aria-label="Superponer órdenes">
+        <button id="ovOn" aria-pressed="true">Con órdenes</button>
+        <button id="ovOff" aria-pressed="false">Sin órdenes</button>
+      </div>
+      <span class="cap">color: dB rel. máx.</span>
+    </div>
+    <div id="sg" class="plot mid"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Espectro de órdenes por tramo estable</h2>
+  <p class="muted" id="ordcap"></p>
+  <div class="chart"><div id="ord" class="plot mid"></div></div>
+</section>
+
+<section class="two">
+  <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+    <h2>Interpretación</h2>
+    <ul id="interp"></ul>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+    <h2>Precisión y límites</h2>
+    <div class="note" id="note"></div>
+    <ul class="muted" id="limits"></ul>
+  </div>
+</section>
+
+<section>
+  <h2>Método</h2>
+  <ul id="method"></ul>
+  <div class="formula" id="formula"></div>
+</section>
+</div>
+
+<script>
+const D = __DATA__;
+const M = __META__;
+const A = __ANALYSIS__;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt = n => Math.round(n).toLocaleString('es-ES');
+const dec = (n,d=1) => n.toFixed(d).replace('.',',');
+const $ = id => document.getElementById(id);
+const Q = M.q, FAC = 60 / Q, FO = A.engine.firing_order;
+const SEGC = ['--seg-a','--seg-b','--seg-c','--seg-d','--seg-e','--seg-f'];
+const segc = i => SEGC[i % SEGC.length];
+
+// --- textos
+$('eyebrow').textContent = M.eyebrow;
+$('h1').textContent = M.title;
+$('lede').innerHTML = M.lede;
+$('wfcap').textContent = `FFT con ventana Hann de 1 s (resolución 1 Hz), paso de 0,25 s, 0–${fmt(D.wf.f[D.wf.f.length-1])} Hz. Nivel en dB relativo al máximo. Arrastra para girar y pellizca o usa la rueda para hacer zoom. Las crestas paralelas son los armónicos del motor: se separan cuando suben las rpm.`;
+$('interp').innerHTML = M.interpretation.map(s=>`<li>${s}</li>`).join('');
+$('note').innerHTML = M.precision.map(s=>`<p>${s}</p>`).join('');
+$('limits').innerHTML = M.limits.map(s=>`<li>${s}</li>`).join('');
+$('method').innerHTML = M.method.map(s=>`<li>${s}</li>`).join('');
+$('formula').textContent = M.formula;
+if (D.audio) $('aud').src = 'data:audio/' + (M.audio_mime || 'ogg') + ';base64,' + D.audio; else $('aud').hidden = true;
+
+// --- segmentos (mesetas) en rpm
+const P = A.plateaus.map((p,i)=>({...p, rpm:p.f_mean*FAC, sd:p.f_std*FAC, min:p.f_min*FAC, max:p.f_max*FAC, label:(M.plateau_labels||{})[p.id]||'', i}));
+const ORD = Object.fromEntries(D.orders.map(o=>[o.id,o]));
+
+// KPIs: inicio + mesetas (máx. 3)
+const kp = [{tag:'inicio', v:A.track_summary.f_comb_first_1s*FAC, l:'Primer segundo de la grabación', c:'--muted'}]
+  .concat(P.slice(0,3).map(p=>({tag:'tramo '+p.id, v:p.rpm, l:`${p.label?p.label+' · ':''}${dec(p.a)}–${dec(p.b)} s`, c:segc(p.i)})));
+$('kpis').innerHTML = kp.map(x=>`<div class="kpi"><span class="tag" style="color:var(${x.c})">${x.tag}</span><span class="v">${fmt(x.v)}<small>rpm</small></span><span class="l">${x.l}</span></div>`).join('');
+
+$('segtbl').innerHTML = `<thead><tr><th>Tramo</th><th>Intervalo</th><th>RPM media</th><th>Mín–máx</th><th>σ</th><th>f giro</th><th>f explosión</th><th>Orden dominante</th></tr></thead><tbody>` +
+  P.map(p=>{const o=ORD[p.id]; const im=o.db.indexOf(Math.max(...o.db)); const ord=o.k[im]*Q;
+   return `<tr><td><span class="dot" style="background:var(${segc(p.i)})"></span>${p.id}${p.label?' · '+p.label:''}</td><td class="num">${dec(p.a)}–${dec(p.b)} s</td><td class="num">${fmt(p.rpm)}</td><td class="num">${fmt(p.min)}–${fmt(p.max)}</td><td class="num">±${dec(p.sd)}</td><td class="num">${dec(p.rpm/60,2)} Hz</td><td class="num">${dec(p.rpm/60*FO,2)} Hz</td><td class="num">${String(+ord.toFixed(2)).replace('.',',')} (${fmt(ord*p.rpm/60)} Hz)</td></tr>`}).join('') + '</tbody>';
+
+// órdenes a superponer en el espectrograma (en órdenes de cigüeñal)
+const OV = M.overlay_orders || [1,2,3,4,5,6].map(n=>n*FO);
+$('sgcap').textContent = `Ventana de 1,2 s. Las líneas de puntos son los órdenes ${OV.map(o=>String(o).replace('.',',')).join(', ')} del cigüeñal calculados con la curva de rpm: si caen sobre las líneas reales, el seguimiento es correcto.`;
+$('ordcap').textContent = M.orders_caption || `Nivel medio en cada orden del cigüeñal, normalizado al más fuerte del tramo. La explosión de este motor es el orden ${String(FO).replace('.',',')}; sus múltiplos deberían destacar.`;
+
+// --- gráficos
+const cfg = {responsive:true, displaylogo:false, modeBarButtonsToRemove:['toImage','sendDataToCloud']};
+function base(){ const fg=css('--fg'), mu=css('--muted'), ln=css('--line');
+  return {paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)', font:{family:'Public Sans, system-ui, sans-serif', color:fg, size:12}, margin:{l:56,r:20,t:16,b:48}, colors:{fg,mu,ln}}; }
+function ax3(title, extra={}){ const b=base(); return Object.assign({title:{text:title,font:{size:12,color:b.colors.mu}}, gridcolor:b.colors.ln, zerolinecolor:b.colors.ln, color:b.colors.fg, showbackground:false},extra); }
+const CS=[[0,'#000004'],[0.13,'#1b0c41'],[0.25,'#4a0c6b'],[0.38,'#781c6d'],[0.5,'#a52c60'],[0.63,'#cf4446'],[0.75,'#ed6925'],[0.88,'#fb9b06'],[1,'#fcffa4']];
+const pct = (arr,p)=>{const v=arr.flat().slice().sort((a,b)=>a-b); return v[Math.floor(p*(v.length-1))];};
+const ZHI = pct(D.wf.z,0.995), ZLO = pct(D.wf.z,0.10);
+const ZFLOOR = ZLO - 10;
+const clampZ = z => z.map(r=>r.map(v=>Math.max(v,ZFLOOR)));
+let wfMode='surf', ovMode=true;
+const scene3 = (xt, xextra={}) => ({xaxis:ax3(xt,xextra), yaxis:ax3('Tiempo [s]'), zaxis:ax3('dB',{range:[ZFLOOR,0]}), aspectmode:'manual', aspectratio:{x:1.6,y:1.2,z:.55}, camera:{eye:{x:-1.35,y:-1.6,z:1.0}}});
+const cbar = () => ({title:{text:'dB',side:'right'}, thickness:12, len:.6, tickfont:{color:base().colors.fg}});
+
+function drawWF(){ const W=D.wf; const rpm=W.fcomb.map(f=>f*FAC); let data;
+  if(wfMode==='surf') data=[{type:'surface', x:W.f, y:W.t, z:clampZ(W.z), colorscale:CS, cmin:ZLO, cmax:ZHI, colorbar:cbar(), hovertemplate:'%{x:.0f} Hz · %{y:.2f} s<br>%{z:.1f} dB<extra></extra>', lighting:{ambient:.85,diffuse:.5,specular:.05,roughness:.9}}];
+  else { data=[]; for(let i=0;i<W.t.length;i+=2) data.push({type:'scatter3d', mode:'lines', x:W.f, y:W.f.map(()=>W.t[i]), z:W.z[i].map(v=>Math.max(v,ZFLOOR)), line:{width:2.5,color:W.z[i],colorscale:CS,cmin:ZLO,cmax:ZHI}, showlegend:false, hovertemplate:`${W.t[i].toFixed(2)} s · ${fmt(rpm[i])} rpm<br>%{x:.0f} Hz · %{z:.1f} dB<extra></extra>`}); }
+  Plotly.react('wf', data, Object.assign(base(), {margin:{l:0,r:0,t:0,b:0}, scene:scene3('Frecuencia [Hz]')}), cfg); }
+function drawOW(){ const O=D.ow;
+  Plotly.react('ow',[{type:'surface', x:O.k.map(k=>k*Q), y:O.t, z:clampZ(O.z), colorscale:CS, cmin:ZLO, cmax:ZHI, colorbar:cbar(), hovertemplate:'orden %{x:.2f} · %{y:.2f} s<br>%{z:.1f} dB<extra></extra>', lighting:{ambient:.85,diffuse:.5,specular:.05}}],
+    Object.assign(base(), {margin:{l:0,r:0,t:0,b:0}, scene:scene3('Orden (× giro cigüeñal)', {dtick:Math.max(0.5,FO)})}), cfg); }
+function drawRPM(){ const b=base(); const T=D.track; const r=T.fcomb.map(f=>f*FAC);
+  const lo=Math.min(...r), hi=Math.max(...r), pad=(hi-lo)*0.12+50;
+  const shapes=P.map(p=>({type:'rect', xref:'x', yref:'paper', x0:p.a, x1:p.b, y0:0, y1:1, fillcolor:css(segc(p.i)), opacity:.12, line:{width:0}}));
+  const ann=P.map(p=>({x:(p.a+p.b)/2, y:1, yref:'paper', yanchor:'bottom', text:`${p.id} · ${fmt(p.rpm)}`, showarrow:false, font:{color:css(segc(p.i)), size:12, family:'JetBrains Mono, monospace'}}));
+  const lowc = T.conf.map((c,i)=>c<3?r[i]:null);
+  Plotly.react('rpm',[{x:T.t, y:r, type:'scatter', mode:'lines', line:{color:b.colors.fg, width:2.5}, hovertemplate:'%{x:.1f} s · %{y:.0f} rpm<extra></extra>', name:'rpm'},
+    {x:T.t, y:lowc, type:'scatter', mode:'lines', line:{color:css('--accent'), width:5}, opacity:.35, hoverinfo:'skip', name:'confianza baja'}],
+    Object.assign(base(), {margin:{l:60,r:16,t:28,b:44}, shapes, annotations:ann, showlegend:false,
+      xaxis:{title:{text:'Tiempo [s]'}, gridcolor:b.colors.ln, zeroline:false, range:[0,D.dur]},
+      yaxis:{title:{text:'rpm'}, gridcolor:b.colors.ln, zeroline:false, range:[lo-pad, hi+pad]}}), cfg); }
+function drawSG(){ const b=base(); const G=D.sg, T=D.track; const fmaxSG=G.f[G.f.length-1];
+  const data=[{type:'heatmap', x:G.t, y:G.f, z:G.z, colorscale:CS, zmin:ZLO+2, zmax:ZHI, colorbar:{title:{text:'dB',side:'right'}, thickness:12}, hovertemplate:'%{x:.1f} s · %{y:.1f} Hz<br>%{z:.1f} dB<extra></extra>'}];
+  const frot=T.fcomb.map(f=>f/Q); let ann=[];
+  if(ovMode){ OV.forEach(o=>data.push({x:T.t, y:frot.map(h=>h*o), type:'scatter', mode:'lines', line:{color:'rgba(80,230,255,.95)', width:1.6, dash:'dot'}, hovertemplate:`orden ${String(o).replace('.',',')} · %{y:.0f} Hz<extra></extra>`, showlegend:false}));
+    const lt=T.t[T.t.length-1], lf=frot[frot.length-1];
+    ann=OV.filter(o=>o*lf<fmaxSG).map(o=>({x:lt, y:o*lf, text:String(o).replace('.',',')+'×', xanchor:'left', showarrow:false, font:{size:11,color:b.colors.fg,family:'JetBrains Mono, monospace'}})); }
+  Plotly.react('sg', data, Object.assign(base(), {margin:{l:56,r:20,t:12,b:44}, annotations:ann, xaxis:{title:{text:'Tiempo [s]'}, range:[0,D.dur]}, yaxis:{title:{text:'Frecuencia [Hz]'}, range:[0,fmaxSG]}}), cfg); }
+function drawOrd(){ const b=base();
+  const data=P.map(p=>{const o=ORD[p.id]; return {type:'bar', x:o.k.map(k=>k*Q), y:o.db.map(v=>v+40), base:-40, name:`${p.id} · ${fmt(p.rpm)} rpm`, marker:{color:css(segc(p.i))}, customdata:o.db, hovertemplate:`${p.id} · orden %{x}<br>%{customdata:.1f} dB<extra></extra>`};});
+  const xmax=Math.min(Math.max(...D.orders.map(o=>o.k[o.k.length-1]))*Q, M.orders_xmax || Math.max(10, 8*FO));
+  Plotly.react('ord', data, Object.assign(base(), {barmode:'group', bargap:.25, bargroupgap:.05, margin:{l:56,r:16,t:12,b:44}, legend:{orientation:'h', y:1.1, x:0},
+    xaxis:{title:{text:'Orden (× giro cigüeñal)'}, dtick:Math.max(0.5,FO), gridcolor:b.colors.ln, range:[0, xmax+Q]},
+    yaxis:{title:{text:'dB rel. orden máx.'}, gridcolor:b.colors.ln, range:[-40,1], zeroline:false}}), cfg); }
+function drawAll(){ drawWF(); drawOW(); drawRPM(); drawSG(); drawOrd(); }
+function setPressed(a,b){ $(a).setAttribute('aria-pressed','true'); $(b).setAttribute('aria-pressed','false'); }
+$('wfSurf').onclick=()=>{wfMode='surf'; setPressed('wfSurf','wfLines'); drawWF();};
+$('wfLines').onclick=()=>{wfMode='lines'; setPressed('wfLines','wfSurf'); drawWF();};
+$('ovOn').onclick=()=>{ovMode=true; setPressed('ovOn','ovOff'); drawSG();};
+$('ovOff').onclick=()=>{ovMode=false; setPressed('ovOff','ovOn'); drawSG();};
+function boot(){ if(!window.Plotly){ document.querySelectorAll('.plot').forEach(p=>p.innerHTML='<p style="padding:16px">No se pudo cargar la librería de gráficos.</p>'); return; }
+  drawAll();
+  try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawAll); }catch(e){}
+  new MutationObserver(drawAll).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']}); }
+boot();
+</script>

@@ -1,0 +1,34 @@
+{
+  "title": "Análisis acústico del motor Predator 200 cc",
+  "page_title": "Análisis acústico Predator 200",
+  "eyebrow": "Informe acústico · Predator 200 cc · monocilíndrico 4T · grabación WhatsApp (Opus 16 kb/s) · 18,1 s",
+  "lede": "El motor arranca cerca del ralentí (~1360 rpm), sube y se mantiene en torno a 2000 rpm, sube a 3000 rpm durante unos 3 s y vuelve a ~2060 rpm. Las rpm salen de la frecuencia de explosión, que en un monocilíndrico de 4 tiempos es una cada dos vueltas, seguida instante a instante en el espectrograma.",
+  "q": 0.5,
+  "plateau_labels": {"A": "meseta ~2000", "B": "final de la meseta", "C": "meseta ~3000", "D": "vuelta a ~2060"},
+  "overlay_orders": [1.5, 2, 2.5, 3, 4, 5],
+  "orders_caption": "Nivel medio cada 0,25 órdenes del cigüeñal, normalizado al más fuerte del tramo. Las barras fuertes caen cada 0,5 órdenes (armónicos de la explosión); las intermedias quedan 9–13 dB por debajo, como corresponde a un monocilíndrico de 4 tiempos.",
+  "interpretation": [
+    "El sonido es una familia de armónicos muy limpia con espaciado <b>f<sub>comb</sub></b> que cambia con el tiempo: 11,3 Hz → 16,6 Hz → 25,0 Hz → 17,2 Hz.",
+    "En un monocilíndrico de 4 tiempos hay una explosión cada 2 vueltas y el sonido se repite con ese periodo, así que f<sub>comb</sub> es la frecuencia de explosión y <b>rpm = 120 · f<sub>comb</sub></b>. La lectura alternativa (rpm = 60 · f<sub>comb</sub>) es incompatible con un solo cilindro.",
+    "El autocorrelado del espectro, un método independiente, da el mismo espaciado en todas las mesetas (diferencia < 0,1 Hz).",
+    "La rpm más baja (~1360–1400) coincide con el ralentí típico de los motores tipo Honda GX200. Los 3000 rpm de la meseta C quedan por debajo del corte del regulador (~3600 rpm).",
+    "El armónico más fuerte se mantiene en 125–155 Hz con cualquier régimen, lo que apunta a una resonancia fija del escape o del bastidor en esa banda."
+  ],
+  "precision": [
+    "Dispersión dentro de las mesetas: ±6 rpm a 3000 y ±10–20 rpm a 2000 rpm. El error de la medida es menor del 0,5 %.",
+    "A 2000 rpm la variación es real: los monocilíndricos con regulador centrífugo «cazan» un poco alrededor del régimen fijado."
+  ],
+  "limits": [
+    "En las transiciones rápidas la confianza baja (tramo naranja en la curva de rpm) y la curva es una interpolación suave.",
+    "Grabación de 16 kb/s: por encima de ~500 Hz el códec deja poca información útil y por debajo de ~50 Hz el micrófono del móvil apenas capta nada.",
+    "Con esta calidad de audio no se pueden detectar fallos de encendido aislados."
+  ],
+  "method": [
+    "Decodificación con ffmpeg y remuestreo a 4 kHz con filtro antialiasing.",
+    "STFT con ventana Hann (0,8–1,2 s según el gráfico, solape 75–92 %, zero-padding hasta 2<sup>15</sup> puntos).",
+    "Blanqueado espectral: se resta la envolvente suavizada de cada cuadro para quedarse solo con las líneas.",
+    "Saliencia de cada candidato f<sub>comb</sub> = (nivel en sus armónicos) × (fracción de la energía de líneas que explica). Penaliza múltiplos y divisores y evita errores de octava.",
+    "Seguimiento con Viterbi (variación máxima 60 %/s) y suavizado Savitzky-Golay; validación con la autocorrelación del espectro."
+  ],
+  "formula": "f_exp = rpm / 120 (1 explosión cada 2 vueltas)      rpm(t) = 120 · f_comb(t)      f_orden n = n · rpm / 60"
+}

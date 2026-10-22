@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+vendor/
+reports/*/data.json
+reports/*/plotly.min.js
+reports/*/report_offline.html
